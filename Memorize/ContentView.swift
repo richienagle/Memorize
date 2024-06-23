@@ -11,8 +11,10 @@ struct ContentView: View {
     var body: some View {
         HStack {
             CardView()
+
         }
         .padding()
+        Text("Hello World!")
     }
 }
 
