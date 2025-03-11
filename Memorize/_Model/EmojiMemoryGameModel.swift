@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct EmojiMemoryGameModel<CardContent> {                //<CardContent> generic type declared here, no errors
+struct EmojiMemoryGameModel<CardContent> where CardContent: Equatable {                //<CardContent> generic type declared here, no errors
     
     private(set) var cards: Array<Card>         //allows looking, no set
     
@@ -17,8 +17,8 @@ struct EmojiMemoryGameModel<CardContent> {                //<CardContent> generi
         // add numberOfPairsOfCards x 2 cards
         for pairIndex in 0..<max(2,numberOfPairsOfCards) {
             let content = cardContentFactory(pairIndex)
-            cards.append(Card(content: content))
-            cards.append(Card(content: content))
+            cards.append(Card(content: content, id:"\(pairIndex+1)a"))
+            cards.append(Card(content: content, id:"\(pairIndex+1)b"))
         }
     }
     
@@ -28,14 +28,16 @@ struct EmojiMemoryGameModel<CardContent> {                //<CardContent> generi
     
     mutating func shuffle() {
         cards.shuffle()
-        print(cards)
+        //print(cards[0].content)
     }
     
     //func scoring {}
     
-    struct Card {
+    struct Card: Equatable, Identifiable {
         var isFaceUp = true
         var isMatched = false
         let content: CardContent
+        
+        var id: String
     }
 }
