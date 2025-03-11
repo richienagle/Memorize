@@ -32,8 +32,8 @@
 		2713C6172D726612009A10BB = {
 			isa = PBXGroup;
 			children = (
-				2713C6222D726612009A10BB /* Memorize */,
 				2713C6212D726612009A10BB /* Products */,
+				2713C6222D726612009A10BB /* Memorize */,
 			);
 			sourceTree = "<group>";
 		};
