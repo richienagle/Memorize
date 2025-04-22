@@ -9,37 +9,32 @@
 import SwiftUI
 
 
-class EmojiMemoryGameVM: ObservableObject {
-    
+class EmojiMemoryGame: ObservableObject {
     private static let emojis = ["👻","🎃","🎱","😈","☠️","🎾","🛟","🏖️","🌻","🤖","🚀","🏈"]
-    //static allows it to be private to class, available globally
     
-    private static func createMemoryGame() -> EmojiMemoryGameModel<String> {
-        return EmojiMemoryGameModel(numberOfPairsOfCards: 12) { pairIndex in
-            if emojis.indices.contains(pairIndex) {
-                return emojis[pairIndex]
+    private static func createMemoryGame() -> MemoryGame<String> {
+        return MemoryGame<String>(numberOfPairsOfCards: 11) { pairIndex in
+            if emojis.indices.contains(pairIndex){
+                emojis[pairIndex]
             } else {
-                return "?"
+                "⁉️"
             }
-            
         }
     }
     
-    //var objectWillChange: ObservableObjectPublisher
-    
     @Published private var model = createMemoryGame()
     
-    var cards:  Array<EmojiMemoryGameModel<String>.Card> {
-         return model.cards
+    var cards: Array<MemoryGame<String>.Card> {
+        return model.cards
     }
     
-    //MARK: - Intents
+    // MARK: - Intents
     
     func shuffle() {
         model.shuffle()
     }
     
-    func choose(_ card:EmojiMemoryGameModel<String>.Card) {       //'_' recommended if it is an internal name
+    func choose(_ card: MemoryGame<String>.Card) {
         model.choose(card)
     }
 }
