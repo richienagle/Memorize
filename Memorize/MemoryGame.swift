@@ -8,7 +8,6 @@
 import Foundation
 
 struct MemoryGame<CardContent> {
-    //CardContent generic in entire scope
     
     var cards: Array<Card>
     

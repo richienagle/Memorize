@@ -7,7 +7,9 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct EmojiMemoryGameView: View {
+    
+    var viewModel: EmojiMemoryGame
     
     let emojis = ["👻","😈","👑","🎃","🦖","🐶","🎱","🍉","☀️","🏈","🏆","🌻"]
     //let emojis: Array<String> = ["👻","😈","👑","🎃"]  //<String> to be type for generic Array
@@ -57,5 +59,5 @@ struct CardView: View {
 }
 
 #Preview {
-    ContentView()
+    EmojiMemoryGameView()
 }
