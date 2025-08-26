@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct MemoryGame<CardContent> {
+struct MemoryGame<CardContent> where CardContent: Equatable{
     
     private(set) var cards: Array<Card>
     
@@ -17,13 +17,24 @@ struct MemoryGame<CardContent> {
         cards = []
         for pairIndex in 0..<max(2, numberOfPairsOfCards) {
             let content: CardContent =  cardContentFactory(pairIndex)
-            cards.append(Card(content: content))
-            cards.append(Card(content: content))
+            cards.append(Card(id: "\(pairIndex+1)a", content: content))
+            cards.append(Card(id: "\(pairIndex+1)b", content: content))
         }
     }
     
-    func choose(_ card: Card) {
-        
+    mutating func choose(_ card: Card) {
+        let chosenIndex = index(of:card)
+        cards[chosenIndex].isFaceUp.toggle()
+        //print("chose card \(card)")
+    }
+    
+    func index(of card: Card) -> Int {
+        for index in cards.indices {
+            if cards[index].id == card.id {
+                return index
+            }
+        }
+        return 0  //FIXME: bogus!
     }
     
     mutating func shuffle() {     // add 'mutating' to modify model
@@ -31,10 +42,25 @@ struct MemoryGame<CardContent> {
         print(cards)
     }
     
-    struct Card {
+    struct Card: Equatable, Identifiable, CustomDebugStringConvertible {
+
+        var id: String
+        
+        /*static func == (lhs: Card, rhs: Card) -> Bool {
+            return lhs.isFaceUp == rhs.isFaceUp &&
+            lhs.isMatched == rhs.isMatched &&
+            lhs.content == rhs.content
+        }
+         */
+        
         var isFaceUp: Bool =  true
         var isMatched: Bool = false
         var content: CardContent
+        
+        var debugDescription: String {
+            "\(id): \(content) \(isFaceUp ? "up" : "down") \(isMatched ? "M" : "U")"
+        }
+        
     }
     
 }
