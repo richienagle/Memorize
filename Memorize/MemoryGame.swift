@@ -25,31 +25,6 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         get { cards.indices.filter { cards[$0].isFaceUp }.only } //.only is extension
         set { cards.indices.forEach { cards[$0].isFaceUp = ($0 == newValue) }}
     }
-
-//    var indexOfTheOneAndOnlyFaceUpCard: Int? {
-//        get {
-//            var faceUpCardIndeicies = [Int]()
-//            for index in cards.indices {
-//                if cards[index].isFaceUp {
-//                    faceUpCardIndeicies.append(index)
-//                }
-//            }
-//            if faceUpCardIndeicies.count == 1 {
-//                return faceUpCardIndeicies.first
-//            } else {
-//                return nil
-//            }
-//        }
-//        set {
-//            for index in cards.indices {
-//                if index == newValue {
-//                    cards[index].isFaceUp = true
-//                } else {
-//                    cards[index].isFaceUp = false
-//                }
-//            }
-//        }
-//    }
     
     mutating func choose(_ card: Card) {
         //if let chosenIndex = cards.firstIndex(where: {cardToCheck in cardToCheck.id == card.id}) {
@@ -86,6 +61,7 @@ struct MemoryGame<CardContent> where CardContent: Equatable {
         
         let id: String
         
+        //MARK: Debug String
         var debugDescription: String {
             return "\(id): \(content) \(isFaceUp ? "up" : "down") \(isMatched ? "YES" : "NO")"
         }
@@ -98,3 +74,28 @@ extension Array {
          count == 1 ? first : nil
     }
 }
+
+//    var indexOfTheOneAndOnlyFaceUpCard: Int? {
+//        get {
+//            var faceUpCardIndeicies = [Int]()
+//            for index in cards.indices {
+//                if cards[index].isFaceUp {
+//                    faceUpCardIndeicies.append(index)
+//                }
+//            }
+//            if faceUpCardIndeicies.count == 1 {
+//                return faceUpCardIndeicies.first
+//            } else {
+//                return nil
+//            }
+//        }
+//        set {
+//            for index in cards.indices {
+//                if index == newValue {
+//                    cards[index].isFaceUp = true
+//                } else {
+//                    cards[index].isFaceUp = false
+//                }
+//            }
+//        }
+//    }
