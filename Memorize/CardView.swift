@@ -17,16 +17,18 @@ struct CardView: View {
     }
     
     var body: some View {
-        TimelineView(.animation) { timeline in
+        // real time slice up into pieces
+        TimelineView(.animation(minimumInterval: 1/5)) { timeline in
+        //TimelineView(.animation) { timeline in
             if card.isFaceUp || !card.isMatched {
                 Pie(endAngle: .degrees(card.bonusPercentRemaining * 360))
                     .opacity(Constants.Pie.opacity)
                     .overlay(cardContents.padding(Constants.Pie.inset))
                     .padding(Constants.inset)
                     .cardify(isFaceUp: card.isFaceUp)
-                    .transition(.scale)
+                    .transition(.scale) // gets infinitely small
             } else {
-                Color.clear
+                Color.clear //keeps card in space, else if disappears rows shift up
             }
         }
     }
